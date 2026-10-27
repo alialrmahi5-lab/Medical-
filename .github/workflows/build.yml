@@ -1,3 +1,4 @@
+
 name: Build MedTerms Quest APK
 
 on:
@@ -12,17 +13,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Java
-        uses: actions/setup-java@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Flutter
-        uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@v2
         with:
           channel: stable
           cache: true
@@ -36,10 +34,10 @@ jobs:
       - name: Build APK
         run: flutter build apk --release
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
+      - name: Upload APK directly
+        uses: actions/upload-artifact@v7
         with:
-          name: medterms-quest-apk
           path: build/app/outputs/flutter-apk/app-release.apk
+          archive: false
           if-no-files-found: error
           retention-days: 7
